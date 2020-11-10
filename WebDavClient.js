@@ -7,13 +7,14 @@ const open = require('open');
 
 const FILE_MENU_ITEMS = [
 	'💾 Download file',
-	'↩️ Back'
+	'↩️  Back'
 ];
 
 const UPPER_FOLDER = {
 	filename: '../',
 	basename: '..',
-	type: 'directory'
+	type: 'directory',
+	size: 0
 };
 
 
@@ -98,45 +99,54 @@ class WebDavClient {
 	}
   
 	beautifyEntry(entry) {
-		const {basename} = entry;
+		let {basename, size, type, lastmod, mime} = entry;
+		let result = `📄 ${basename}`;
     
 		if(entry.type === 'directory') {
-			return `📁 ${basename}`;
+			result = `📁 ${basename}`;
+		} else if(/(.*)(\.png)|(\.jpg)|(\.gif)|(\.jpeg)|(\.svg)$/gi.test(basename)) {
+			result = `🖼  ${basename}`;
+		} else if(/(.*)(\.pdf)|(\.doc(x?))|(\.xls(x?))|(\.txt)|(\.csv)|(\.ppt(x?))$/gi.test(basename)) {
+			result = `📊 ${basename}`;
+		} else if(/(.*)(\.zip)|(\.7z)|(\.tar)|(\.gz)|(\.iso)$/gi.test(basename)) {
+			result = `🗄 ${basename}`;
+		} else if(/(.*)(\.mp4)|(\.flv)|(\.webm)|(\.mkv)|(\.ogg)|(\.avi)|(\.mpeg)|(\.mpg)|(\.mov)$/gi.test(basename)) {
+			result = `🎬 ${basename}`;
+		} else if(/(.*)(\.json)|(\.ini)|(\.js)|(\.ts)|(\.cs)|(\.html)|(\.css)$/gi.test(basename)) {
+			result = `⚙︎ ${basename}`;
+		} else if(/(.*)(\.url)|(\.geojson)|(\.webloc)$/gi.test(basename)) {
+			result = `🌍 ${basename}`;
+		} else if(/(.*)(\.t3d)$/gi.test(basename)) {
+			result = `🗿 ${basename}`;
+		} else if(/(.*)(\.tmap)$/gi.test(basename)) {
+			result = `🗺  ${basename}`;
 		}
-    
-		if(/(.*)(\.png)|(\.jpg)|(\.gif)|(\.jpeg)|(\.svg)$/gi.test(basename)) {
-			return `🖼   ${basename}`;
+		// basename padend
+		if(result.length > 37) {
+			result = result.substr(0, 37) + '...';
 		}
+  
+		result = result.padEnd(40, ' ');
+		result = result.substr(0, 40);
     
-		if(/(.*)(\.pdf)|(\.doc(x?))|(\.xls(x?))|(\.txt)|(\.ppt(x?))$/gi.test(basename)) {
-			return `📊  ${basename}`;
+		if(type !== 'directory') {
+			result += `${size} B  `.padStart(20, ' ');
+		} else {
+			result += ''.padStart(20, ' ');
 		}
+		result = result.substr(0, 60);
+
+		result += `${lastmod || ''}`.padEnd(10, ' ').padStart(30, ' ');
+		result = result.substr(0, 100);
     
-		if(/(.*)(\.zip)|(\.7z)|(\.tar)|(\.txt)|(\.iso)$/gi.test(basename)) {
-			return `🗄  ${basename}`;
+		if(type !== 'directory') {
+			result += `${mime}`.padStart(30, ' ');
+		} else {
+			result += ''.padStart(30, ' ');
 		}
+		result = result.substr(0, 130);
     
-		if(/(.*)(\.mp4)|(\.flv)|(\.webm)|(\.mkv)|(\.ogg)|(\.avi)|(\.mpeg)|(\.mpg)|(\.mov)$/gi.test(basename)) {
-			return `🎬  ${basename}`;
-		}
-    
-		if(/(.*)(\.json)|(\.ini)|(\.js)|(\.ts)|(\.cs)$/gi.test(basename)) {
-			return `⚙︎ ${basename}`;
-		}
-    
-		if(/(.*)(\.url)|(\.geojson)|(\.webloc)$/gi.test(basename)) {
-			return `🌍  ${basename}`;
-		}
-    
-		if(/(.*)(\.t3d)$/gi.test(basename)) {
-			return `🗿  ${basename}`;
-		}
-    
-		if(/(.*)(\.tmap)$/gi.test(basename)) {
-			return `🗺  ${basename}`;
-		}
-    
-		return `📄  ${basename}`;
+		return result;
 	}
 
 }

@@ -1,0 +1,15 @@
+{
+  "name": "webdav",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.ctinnovation.it:giovanni.bertoncelli/webdav.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

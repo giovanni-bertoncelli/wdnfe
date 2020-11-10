@@ -46,7 +46,7 @@ class WebDAVClient {
 	showFile(fileStats) {
 		return new Promise((res, rej) => {
 			hideProgress();
-			term.bgGray.black(`pwd: ${host}${this.currentPath}\n\n`);
+			term.bgGray.black(`📂 ${host}${this.currentPath}\n\n`);
 			const {filename} = fileStats;
 			const downloadLink = this.client.getFileDownloadLink(filename);
 			term('ℹ️  File stats:\n');

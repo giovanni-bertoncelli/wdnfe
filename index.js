@@ -1,8 +1,6 @@
-const {host, user, password} = require('./config/argv');
 const {terminal: term} = require('terminal-kit') ;
 
-const WebDavClient = require('./WebDavClient');
-const { showProgress: showProgressAsync } = require('./cli/progress');
+const WebDAVClient = require('./webdav/WebDAVClient');
 
 term.on('key', function(name) {
 	if (name === 'CTRL_C' || name === 'q') { 
@@ -11,7 +9,7 @@ term.on('key', function(name) {
 });
 
 async function runAsync() {
-	const client = new WebDavClient();
+	const client = new WebDAVClient();
 	await client.init();
 }
 

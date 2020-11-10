@@ -16,7 +16,7 @@ function hideProgress() {
 }
 
 function printHeader() {
-	term.blue('WDNFE WebDav Nodejs File Explorer\n');
+	term.blue('WDNFE WebDAV NodeJS File Explorer\n');
 	term.gray('Press q to exit...\n\n');
 }
 

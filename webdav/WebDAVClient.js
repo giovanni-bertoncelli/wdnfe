@@ -1,8 +1,8 @@
-const {host, user, password} = require('./config/argv');
+const {host, user, password} = require('../config/argv');
 const {createClient} = require('webdav');
 const {terminal: term} = require('terminal-kit') ;
 const path = require('path');
-const { showProgress, hideProgress } = require('./cli/progress');
+const { showProgress, hideProgress } = require('../cli/progress');
 const open = require('open');
 
 const FILE_MENU_ITEMS = [
@@ -18,7 +18,7 @@ const UPPER_FOLDER = {
 };
 
 
-class WebDavClient {
+class WebDAVClient {
 	constructor() {
 		this.client = createClient(host, {
 			username: user,
@@ -151,4 +151,4 @@ class WebDavClient {
 
 }
 
-module.exports = WebDavClient;
+module.exports = WebDAVClient;

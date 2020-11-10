@@ -1,5 +1,5 @@
 {
-  "name": "webdav",
+  "name": "wdnfe",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,5 +11,15 @@
     "url": "git@gitlab.ctinnovation.it:giovanni.bertoncelli/webdav.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "open": "^7.3.0",
+    "terminal-kit": "^1.44.0",
+    "webdav": "^3.6.1",
+    "yargs": "^16.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0"
+  }
 }
